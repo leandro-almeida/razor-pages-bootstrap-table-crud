@@ -1,0 +1,62 @@
+﻿@page "{handler?}"
+@model RazorPagesBootstrapTable.Pages.Customers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customers</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<table id="table"
+       data-id-field="id"
+       data-toggle="table"
+       data-side-pagination="server"
+       data-pagination="true"
+       data-url="/customers/DadosGrid"
+       data-search="true"
+       data-show-search-button="true"
+       data-show-refresh="true"
+       data-show-fullscreen="true"
+       data-show-columns="true"
+       data-show-export="true"
+       data-buttons-class="primary"
+       data-classes="table table-striped table-bordered table-hover table-sm">
+    <thead>
+        <tr>
+            <th data-formatter="acoesFormatter" data-events="acoesEvents">Ações</th>
+            <th data-field="id">Id</th>
+            <th data-field="name" data-sortable="true">Name</th>
+            <th data-field="phoneNumber">Phone Number</th>
+            <th data-field="address">Address</th>
+            <th data-field="postalCode">PostalCode</th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts {
+    <script>
+        function acoesFormatter(value, row, index) {
+            return [
+                '<a class="js-editar" href="javascript:void(0)" title="Editar">',
+                '<i class="fa fa-edit"></i>',
+                '</a>  ',
+                '<a class="js-excluir" href="javascript:void(0)" title="Excluir">',
+                '<i class="fa fa-trash"></i>',
+                '</a>'
+            ].join('')
+        }
+
+        window.acoesEvents = {
+            'click .js-editar': function (e, value, row, index) {
+                alert('Ação Editar, linha: \r\n' + JSON.stringify(row))
+            },
+            'click .js-excluir': function (e, value, row, index) {
+                alert('Ação Excluir, linha: \r\n' + JSON.stringify(row))
+            }
+        }
+    </script>
+}
